@@ -1,0 +1,51 @@
+package com.example.tema2;
+
+
+import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.List;
+
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class ReadStudentsFragment extends Fragment {
+    private TextView TxtInfo;
+
+    public ReadStudentsFragment() {
+        // Required empty public constructor
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+
+        View view = inflater.inflate(R.layout.fragment_read_students, container, false);
+        TxtInfo = view.findViewById(R.id.txt_display_info);
+
+        List<Student> studentList = MainActivity.myAppDatabase.myDataAccessObject().getStudents();
+
+        String info = "";
+
+        for(Student std: studentList)
+        {
+            String name = std.getName();
+            String mark = std.getMark();
+            info = info +  "\n\n" + "Nume :" + name + "\n\nMark: " + mark + "\n\n";
+        }
+
+        TxtInfo.setText(info);
+
+       return view;
+    }
+
+}
